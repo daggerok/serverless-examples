@@ -1,0 +1,7 @@
+= serverless-examples
+
+//tag::content[]
+
+. link:spring-cloud-functions/[Spring Cloud Functions]
+
+//end::content[]
