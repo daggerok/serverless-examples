@@ -14,28 +14,9 @@ bash build/libs/*.jar
 ./gradlew composeDown
 ----
 
-.maven
-----
-./mvnw
-java -jar target/*.jar
-bash target/*.jar
+links:
 
-./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
-./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-----
-
-==== what's inside?
-
-. java 8 based project
-. spring-boot 2 / spring framework 5
-. support fatjar
-. support executable bash jar
-. support kotlin
-. support maven
-. support gradle
-. vavr (javaslang)
-. lombok (slf4j + logback logging)
-. support testing with junit 4 / 5
-. docker / docker-compose support
+. link:https://cloud.spring.io/spring-cloud-function/[Spring Cloud Function]
+. link:https://www.youtube.com/watch?v=mPOl3024R4s[Serverless Spring - Mark Fisher]
 
 //end::content[]
