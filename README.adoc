@@ -1,7 +1,6 @@
 = serverless-examples image:https://travis-ci.org/daggerok/serverless-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/serverless-examples"]
 
 //tag::content[]
-TODO: in progress
 
 . link:spring-cloud-functions/[Spring Cloud Functions]
 
