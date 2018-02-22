@@ -77,10 +77,11 @@ repositories {
 dependencies {
 
   // spring-boot
-  compile("org.springframework.boot:spring-boot-starter-webflux")
+//  compile("org.springframework.boot:spring-boot-starter-webflux")
+//  testCompile("io.projectreactor:reactor-test")
+  compile("org.springframework.cloud:spring-cloud-function-web:1.0.0.M3")
   compile("org.springframework.boot:spring-boot-starter-actuator")
   testCompile("org.springframework.boot:spring-boot-starter-test")
-  testCompile("io.projectreactor:reactor-test")
   //runtime("org.springframework.boot:spring-boot-devtools")
   //compileOnly("org.springframework.boot:spring-boot-configuration-processor")
 
@@ -157,7 +158,7 @@ dockerCompose {
 composeUp.dependsOn assemble
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.5.1"
+  gradleVersion = "4.6-rc-2"
   distributionType = "ALL"
 }
 
