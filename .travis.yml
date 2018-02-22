@@ -20,7 +20,7 @@ before_script:
 script:
 - export root=$(pwd)
 #
-- cd ${root}/spring-cloud-functions
+- cd ${root}/spring-cloud-function-web
 - bash gradlew
 - java -jar ./build/libs/*.jar &
 - wait_for 8080
