@@ -1,0 +1,105 @@
+buildscript {
+  ext {
+    javaVersion = "1.8"
+    kotlinVersion = "1.2.21"
+    springBootVersion = "2.0.0.RC1"
+    springCloudVersion = "Finchley.M6"
+    springCloudFunctionVersion = "1.0.0.M3"
+  }
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+  }
+}
+
+plugins {
+  id "idea"
+  id "java"
+  id "maven"
+  id "eclipse"
+  id "org.jetbrains.kotlin.jvm" version "1.2.21"
+  id "com.avast.gradle.docker-compose" version "0.6.13"
+  id "org.jetbrains.kotlin.plugin.noarg" version "1.2.21"
+  id "org.jetbrains.kotlin.plugin.spring" version "1.2.21"
+  id "org.jetbrains.kotlin.plugin.allopen" version "1.2.21"
+  id "io.spring.dependency-management" version "1.0.4.RELEASE"
+}
+
+apply plugin: "org.springframework.boot"
+
+group = "daggerok"
+version = "0.0.1"
+sourceCompatibility = targetCompatibility = "$javaVersion"
+
+compileKotlin {
+  incremental = true
+  kotlinOptions {
+    freeCompilerArgs = ["-Xjsr305=strict"]
+    jvmTarget = "$javaVersion"
+  }
+}
+
+compileTestKotlin {
+  incremental = true
+  kotlinOptions {
+    freeCompilerArgs = ["-Xjsr305=strict"]
+    jvmTarget = "$javaVersion"
+  }
+}
+
+defaultTasks "clean", "build"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "https://repo.spring.io/snapshot" }
+  maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+
+  compile("org.springframework.boot:spring-boot-starter-actuator")
+  compile("org.springframework.cloud:spring-cloud-function-web:$springCloudFunctionVersion")
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+  //compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+  compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+  }
+}
+
+bootJar {
+  launchScript()
+}
+
+def profile = project.hasProperty("profile") ? project.getProperty("profile") : "gradle"
+
+dockerCompose {
+  useComposeFiles = [project.file("docker-compose-${profile}.yaml")]
+  // captureContainersOutput = true
+  captureContainersOutput = false
+  stopContainers = true
+  removeContainers = true
+  removeImages = "Local"
+  removeVolumes = true
+  removeOrphans = true
+  forceRecreate = true
+  waitForTcpPorts = false
+  projectName = project.name
+}
+
+composeUp.dependsOn assemble
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.6-rc-2"
+  distributionType = "ALL"
+}

@@ -20,6 +20,21 @@ before_script:
 script:
 - export root=$(pwd)
 #
+- cd ${root}/spring-cloud-function-filter
+- bash gradlew
+- java -jar ./build/libs/*.jar &
+- wait_for 8080
+- http :8080/actuator/health
+- echo '["I said, fuck this shit!"]' | http :8080
+- stop_any 8080 80
+#
+- bash mvnw
+- java -jar ./target/*.jar &
+- wait_for 8080
+- http :8080/actuator/health
+- echo '["I said", "fuck this shit!"]' | http :8080
+- stop_any 8080 80
+#
 - cd ${root}/spring-cloud-function-web
 - bash gradlew
 - java -jar ./build/libs/*.jar &
