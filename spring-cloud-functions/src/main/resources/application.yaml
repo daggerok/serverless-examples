@@ -1,4 +1,4 @@
 spring:
-  profiles:
-    include:
-    - spring-boot
+  output:
+      ansi:
+        enabled: always
