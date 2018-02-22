@@ -24,38 +24,33 @@ script:
 - bash gradlew
 - java -jar ./build/libs/*.jar &
 - wait_for 8080
-- http :8080
-- http :8080 value=ololo1 value=trllolo1
+- http :8080/actuator/health
+- http :8080 value=ololo1 value2=trllolo1
 - stop_any 8080 80
 #
 - bash ./build/libs/*.jar &
 - wait_for 8080
-- http :8080
-- http :8080 value=ololo2 value=trllolo2
+- http :8080 value=ololo2 value2=trllolo2
 - stop_any 8080 80
 #
 - bash gradlew composeUp
-- http :8080
-- http :8080 value=ololo3 value=trllolo3
+- http :8080 value=ololo3 value2=trllolo3
 - bash gradlew composeDown
 #
 - bash mvnw
 - java -jar ./target/*.jar &
 - wait_for 8080
-- http :8080
-- http :8080 value=ololo4 value=trllolo4
+- http :8080 value=ololo4 value2=trllolo4
 - stop_any 8080 80
 #
 - bash ./target/*.jar &
 - wait_for 8080
-- http :8080
-- http :8080 value=ololo5 value=trllolo5
+- http :8080 value=ololo5 value2=trllolo5
 - stop_any 8080 80
 #
 - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
 - sleep 20
-- http :8080
-- http :8080 value=ololo6 value=trllolo6
+- http :8080 value=ololo6 value2=trllolo6
 - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
 cache:
   directories:

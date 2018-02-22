@@ -112,6 +112,7 @@ dependencies {
   compile("com.fasterxml.jackson.module:jackson-module-kotlin")
   compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
   compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+  testCompile("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
 
   // junit 4
   testCompile "junit:junit:4.12"
